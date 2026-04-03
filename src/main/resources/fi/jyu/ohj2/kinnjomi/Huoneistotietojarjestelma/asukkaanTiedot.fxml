@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Asukkaan tiedot">
+         <VBox.margin>
+            <Insets bottom="10.0" top="5.0" />
+         </VBox.margin>
+      </Label>
+      <GridPane prefHeight="119.0" prefWidth="600.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="104.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="496.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="nimiLable" alignment="CENTER" maxWidth="1.7976931348623157E308" text="Nimi" />
+            <Label fx:id="ikaLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" text="Ikä" GridPane.rowIndex="1" />
+            <Label fx:id="sahkopostiLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" text="Sähköposti" GridPane.rowIndex="2" />
+            <TextField fx:id="nimiField" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="5.0" right="5.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="ikaField" prefHeight="25.0" prefWidth="289.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="5.0" right="5.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="sahkopostiField" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="5.0" right="5.0" />
+               </GridPane.margin>
+            </TextField>
+         </children>
+      </GridPane>
+      <HBox alignment="CENTER" prefHeight="43.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <Button fx:id="lisaaTiedotButton" mnemonicParsing="false" text="Lisää tiedot">
+               <HBox.margin>
+                  <Insets bottom="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="suljeAsukasButton" mnemonicParsing="false" text="Sulje">
+               <HBox.margin>
+                  <Insets bottom="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>
