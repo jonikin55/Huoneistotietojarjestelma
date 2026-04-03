@@ -2,8 +2,10 @@ package fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,6 +36,9 @@ public class LisaaAsuntoController implements Initializable {
     }
 
     public void sulje(){
+        Scene scene = tunnusField.getScene();
+        Stage ikkuna = (Stage) scene.getWindow();
+        ikkuna.close();
         IO.println("Suljit lisaa asunto näkymän");
     }
 }
