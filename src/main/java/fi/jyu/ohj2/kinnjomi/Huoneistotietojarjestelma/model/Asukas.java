@@ -5,10 +5,10 @@ public class Asukas {
     private final String sahkoposti;
     private final int ika;
 
-    public Asukas(String nimi, String sahkoposti, int ika) {
+    public Asukas(String nimi, int ika, String sahkoposti) {
         this.nimi = nimi;
-        this.sahkoposti = sahkoposti;
         this.ika = ika;
+        this.sahkoposti = sahkoposti;
     }
 
     public String getNimi() {

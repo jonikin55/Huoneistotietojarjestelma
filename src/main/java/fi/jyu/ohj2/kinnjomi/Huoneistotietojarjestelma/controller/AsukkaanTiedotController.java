@@ -3,6 +3,7 @@ package fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.controller;
 import fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model.Asukas;
 import fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model.Asunto;
 import fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model.Yhtio;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -29,24 +30,18 @@ public class AsukkaanTiedotController implements Initializable {
     @FXML
     private Button suljeAsukasButton;
 
+    private ObservableList<Asukas> asukkaat;
+
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        nimiField.setOnAction(actionEvent -> lisaaNimi());
-        ikaField.setOnAction(actionEvent -> lisaaIka());
-        sahkopostiField.setOnAction(actionEvent -> lisaaSahkoposti());
-        lisaaTiedotButton.setOnAction(actionEvent -> tallennaTiedot());
+        nimiField.setOnAction(actionEvent -> lisaaAsukasListaan());
+        ikaField.setOnAction(actionEvent -> lisaaAsukasListaan());
+        sahkopostiField.setOnAction(actionEvent -> lisaaAsukasListaan());
+        lisaaTiedotButton.setOnAction(actionEvent -> lisaaAsukasListaan());
         suljeAsukasButton.setOnAction(actionEvent -> sulje());
     }
-
-    public void lisaaNimi(){
-        IO.println("Lisäsit asukkaalle nimen");
-    }
-
-    public void lisaaIka(){
-        IO.println("Lisäsit asukkaalle iän");
-    }
-
-    public void lisaaSahkoposti(){
-        IO.println("Lisäsit asukkaalle sähköpostin");
+    //Linkittää AsukkaanTiedotControllerin asukkaat listan MuokkaaAsuntoControllein asukkaat listan kanssa.
+    public void lisaaAsukasMuokkaaIkkunaan(ObservableList<Asukas> asukkaat){
+        this.asukkaat = asukkaat;
     }
 
     public void tallennaTiedot(){
@@ -58,5 +53,28 @@ public class AsukkaanTiedotController implements Initializable {
         Stage ikkuna = (Stage) scene.getWindow();
         ikkuna.close();
         IO.println("Suljit Asukkaan tiedot ikkunan");
+    }
+
+
+    // Käsitellään nimi-, sahkoposti- ja ikaFieldein syötettyä tietoa ja tarkistetaan onko annettu syöte oikeanlaista.
+    public void lisaaAsukasListaan() {
+        String nimi = nimiField.getText();
+        String sahkoposti = sahkopostiField.getText();
+        int ika = 0;
+        try {
+            ika = Integer.parseInt(ikaField.getText());
+        } catch (NumberFormatException e) {
+            IO.println("Iän pitää olla kokonaisluku");
+            return;
+        }
+
+        if (!nimi.isEmpty() && !sahkoposti.isEmpty()) {
+            Asukas uusiAsukas = new Asukas(nimi,ika , sahkoposti);
+            asukkaat.add(uusiAsukas);
+            sulje();
+        } else {
+            IO.println("Asukkaan kaikki tiedot tulee täyttää");
+        }
+
     }
 }
