@@ -1,5 +1,8 @@
 package fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.controller;
 
+import fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model.Asukas;
+import fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model.Asunto;
+import fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model.Yhtio;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;

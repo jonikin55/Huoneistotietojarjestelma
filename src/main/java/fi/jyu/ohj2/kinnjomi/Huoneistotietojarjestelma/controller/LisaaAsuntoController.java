@@ -1,5 +1,9 @@
 package fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.controller;
 
+import fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model.Asukas;
+import fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model.Asunto;
+import fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model.Yhtio;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -20,19 +24,32 @@ public class LisaaAsuntoController implements Initializable {
     @FXML
     private Button suljeLisaaAsuntoButton;
 
+    private ObservableList<Asunto> asunnot;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        tunnusField.setOnAction(actionEvent -> lisaaTunnus());
-        lisaaAsuntoButton.setOnAction(actionEvent -> lisaaAsunto());
+        tunnusField.setOnAction(actionEvent -> lisaaAsuntoListaan());
+        lisaaAsuntoButton.setOnAction(actionEvent -> lisaaAsuntoListaan());
         suljeLisaaAsuntoButton.setOnAction(actionEvent -> sulje());
     }
 
-    private void lisaaTunnus(){
-        IO.println("Lisäsit asunnollee tunnuksen");
+    //Linkittää LisaaAsuntoControllerin asunnot listan MainControllerin asunnot listan kanssa.
+    public void lisaaAsuntoPaaIkkunaan(ObservableList<Asunto> asunnot) {
+        this.asunnot = asunnot;
     }
 
-    private void lisaaAsunto(){
-        IO.println("Lisäsit asunnon");
+    //Käsitellään tunnusField tekstikenttään annettu syöte
+    private void lisaaAsuntoListaan(){
+        String syote = tunnusField.getText();
+        if(!syote.isEmpty() ){
+            Asunto uusiAsunto = new Asunto(syote);
+            asunnot.add(uusiAsunto);
+            tunnusField.clear();
+            tunnusField.requestFocus();
+        }
+        else{
+            IO.println("Ei onnistunut");
+        }
     }
 
     public void sulje(){
