@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 
 public class MuokkaaAsuntoController implements Initializable {
     @FXML
-    private TableView asuntoTable;
+    private TableView<Asukas> asuntoTable;
 
     @FXML
     private Label asuntoLabel;
@@ -41,7 +41,8 @@ public class MuokkaaAsuntoController implements Initializable {
     @FXML
     private Button suljeMuokkaaButton;
 
-    private Asunto valittuAsunto;
+    private Asunto klikattuAsunto;
+    private Asukas valittuAsukas;
 
     private ObservableList<Asukas> asukkaat = FXCollections.observableArrayList();
 
@@ -62,7 +63,7 @@ public class MuokkaaAsuntoController implements Initializable {
         //Lisätään asukkaan sahkoposti sarake ja siihen asukkaiden sahkopostit
         TableColumn<Asukas, String> sahkoPostiSarake = new TableColumn<>("Sähköposti");
         sahkoPostiSarake.setPrefWidth(225);
-        sahkoPostiSarake.setCellValueFactory(cd -> cd.getValue().sahkopostiProperty()));
+        sahkoPostiSarake.setCellValueFactory(cd -> cd.getValue().sahkopostiProperty());
         asuntoTable.getColumns().add(sahkoPostiSarake);
         asuntoTable.setItems(asukkaat);
 
@@ -71,10 +72,15 @@ public class MuokkaaAsuntoController implements Initializable {
         lisaaAsukasButton.setOnAction(actionEvent -> avaaAsukkaanTiedot());
         poistaAsukasButton.setOnAction(actionEvent -> poistaAsukas());
         suljeMuokkaaButton.setOnAction(actionEvent -> sulje());
+
+        asuntoTable.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->
+                valittuAsukas = newVal
+        );
     }
 
-    public void setAsuntoTunnus(Asunto asunto){
-        valittuAsunto = asunto;
+    public void setAsunto(Asunto asunto){
+        klikattuAsunto = asunto;
+        asuntoTable.setItems(klikattuAsunto.getAsukkaat());
         asuntoLabel.setText("Asunto: " + asunto.getTunnus());
     }
 
@@ -86,8 +92,8 @@ public class MuokkaaAsuntoController implements Initializable {
             Scene scene = new Scene(root);
 
             AsukkaanTiedotController controller = loader.getController();
-            controller.lisaaAsukasMuokkaaIkkunaan(asukkaat);
-
+            //controller.lisaaAsukasMuokkaaIkkunaan(klikattuAsunto);
+            controller.setAsunto(klikattuAsunto);
             Stage dialogi = new Stage();
             dialogi.setScene(scene);
 
@@ -95,7 +101,6 @@ public class MuokkaaAsuntoController implements Initializable {
             dialogi.initModality(Modality.APPLICATION_MODAL);
 
             dialogi.showAndWait();
-            controller.lisaaAsukasMuokkaaIkkunaan(asukkaat);
 
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -32,6 +32,7 @@ public class AsukkaanTiedotController implements Initializable {
 
     private ObservableList<Asukas> asukkaat;
     private Asukas asukas;
+    private Asunto klikattuasunto;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nimiField.setOnAction(actionEvent -> lisaaAsukasListaan());
@@ -40,15 +41,6 @@ public class AsukkaanTiedotController implements Initializable {
         lisaaTiedotButton.setOnAction(actionEvent -> lisaaAsukasListaan());
         suljeAsukasButton.setOnAction(actionEvent -> sulje());
     }
-    //Linkittää AsukkaanTiedotControllerin asukkaat listan MuokkaaAsuntoControllein asukkaat listan kanssa.
-    public void lisaaAsukasMuokkaaIkkunaan(ObservableList<Asukas> asukkaat){
-        this.asukkaat = asukkaat;
-    }
-
-    public Asukas getAsukas(){
-        return asukas;
-    }
-
     public void tallennaTiedot(){
         IO.println("Tallensit asukkaalle asettamasi tiedot");
     }
@@ -75,10 +67,13 @@ public class AsukkaanTiedotController implements Initializable {
 
         if (!nimi.isEmpty() && !sahkoposti.isEmpty()) {
             asukas = new Asukas(nimi, ika, sahkoposti);
-            asukkaat.add(asukas);
+            klikattuasunto.getAsukkaat().add(asukas);
             sulje();
         } else {
             IO.println("Asukkaan kaikki tiedot tulee täyttää");
         }
+    }
+    public void setAsunto(Asunto asunto) {
+        this.klikattuasunto = asunto;
     }
 }

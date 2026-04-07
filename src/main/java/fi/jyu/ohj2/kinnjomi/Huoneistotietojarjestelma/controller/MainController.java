@@ -37,6 +37,7 @@ public class MainController implements Initializable {
     private Button poistaButton;
 
     private ObservableList<Asunto> asunnot = FXCollections.observableArrayList();
+    private Asunto klikattuAsunto;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -51,6 +52,9 @@ public class MainController implements Initializable {
         asukasMaaraSarake.setCellValueFactory(cd -> cd.getValue().asukasMaaraProperty());
         asuntoTiedotTable.getColumns().add(asukasMaaraSarake);
         asuntoTiedotTable.setItems(asunnot);
+        asuntoTiedotTable.getSelectionModel().selectedItemProperty().addListener((_, _, newVal) ->
+                klikattuAsunto = newVal)
+        ;
 
         lisaaAsuntoButton.setOnAction(actionEvent -> avaaLisaaAsunto());
         muokkaaButton.setOnAction(actionEvent -> avaaMuokkaaAsunto());
@@ -98,7 +102,7 @@ public class MainController implements Initializable {
 
             //Linkitetään valittu asunto MuokkaaAsuntoControlleriin
             MuokkaaAsuntoController controller = loader.getController();
-            controller.setAsuntoTunnus(klikattuAsunto);
+            controller.setAsunto(klikattuAsunto);
 
             Stage dialogi = new Stage();
             dialogi.setScene(scene);

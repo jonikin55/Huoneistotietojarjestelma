@@ -29,5 +29,6 @@ public class Asunto {
 
     public void lisaaAsukas(Asukas asukas){ asukkaat.add(asukas);}
     public void poistaAsukas(Asukas asukas){ asukkaat.remove(asukas);}
+    public ObservableList<Asukas> getAsukkaat(){ return asukkaat;}
 
 }
