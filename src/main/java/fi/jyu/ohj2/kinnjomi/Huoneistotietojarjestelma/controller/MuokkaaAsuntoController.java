@@ -50,19 +50,19 @@ public class MuokkaaAsuntoController implements Initializable {
         //Lisätään asukkaan nimi sarake ja siihen asukkaiden nimet
         TableColumn<Asukas, String> nimiSarake = new TableColumn<>("Nimi");
         nimiSarake.setPrefWidth(125);
-        nimiSarake.setCellValueFactory(new PropertyValueFactory<>("nimi"));
+        nimiSarake.setCellValueFactory(cd -> cd.getValue().nimiProperty());
         asuntoTable.getColumns().add(nimiSarake);
 
         //Lisätään asukkaan ikä sarake ja siihen asukkaiden iät
-        TableColumn<Asukas, Integer> ikaSarake = new TableColumn<>("Ikä");
+        TableColumn<Asukas, Number> ikaSarake = new TableColumn<>("Ikä");
         ikaSarake.setPrefWidth(50);
-        ikaSarake.setCellValueFactory(new PropertyValueFactory<>("ika"));
+        ikaSarake.setCellValueFactory(cd -> cd.getValue().ikaProperty());
         asuntoTable.getColumns().add(ikaSarake);
 
         //Lisätään asukkaan sahkoposti sarake ja siihen asukkaiden sahkopostit
         TableColumn<Asukas, String> sahkoPostiSarake = new TableColumn<>("Sähköposti");
         sahkoPostiSarake.setPrefWidth(225);
-        sahkoPostiSarake.setCellValueFactory(new PropertyValueFactory<>("sahkoposti"));
+        sahkoPostiSarake.setCellValueFactory(cd -> cd.getValue().sahkopostiProperty()));
         asuntoTable.getColumns().add(sahkoPostiSarake);
         asuntoTable.setItems(asukkaat);
 

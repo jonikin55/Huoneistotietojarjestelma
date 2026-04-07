@@ -19,7 +19,7 @@ public class Asunto {
         bindAsukasMaara();
     }
 
-    public String getTunnus() { return tunnus.get();}
+    public String getTunnus() { return this.tunnus.get();}
     public void setTunnus(String tunnus){ this.tunnus.set(tunnus);}
     public StringProperty tunnusProperty(){ return this.tunnus;}
 

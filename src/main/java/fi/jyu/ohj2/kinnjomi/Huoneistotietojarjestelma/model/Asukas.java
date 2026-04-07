@@ -1,24 +1,30 @@
 package fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Asukas {
-    private final String nimi;
-    private final String sahkoposti;
-    private final int ika;
+    private final StringProperty nimi = new SimpleStringProperty("");
+    private final StringProperty sahkoposti = new SimpleStringProperty("");
+    private final IntegerProperty ika = new SimpleIntegerProperty(0);
 
     public Asukas(String nimi, int ika, String sahkoposti) {
-        this.nimi = nimi;
-        this.ika = ika;
-        this.sahkoposti = sahkoposti;
+        setNimi(nimi);
+        setSahkoposti(sahkoposti);
+        setIka(ika);
     }
 
-    public String getNimi() {
-        return nimi;
-    }
-    public String getSahkoposti() {
-        return sahkoposti;
-    }
+    public void setNimi(String nimi){ this.nimi.set(nimi);}
+    public void setSahkoposti(String sahkoposti){ this.sahkoposti.set(sahkoposti);}
+    public void setIka(int ika){ this.ika.set(ika);}
 
-    public int getIka() {
-        return ika;
-    }
+    public String getNimi(){return this.nimi.get(); }
+    public String getSahkoposti(){return this.sahkoposti.get(); }
+    public int getIka(){return this.ika.get(); }
+
+    public StringProperty nimiProperty(){ return this.nimi;}
+    public StringProperty sahkopostiProperty(){ return this.sahkoposti;}
+    public IntegerProperty ikaProperty(){ return this.ika;}
 }
