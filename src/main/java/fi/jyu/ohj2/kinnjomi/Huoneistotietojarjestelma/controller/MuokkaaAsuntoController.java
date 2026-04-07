@@ -41,6 +41,8 @@ public class MuokkaaAsuntoController implements Initializable {
     @FXML
     private Button suljeMuokkaaButton;
 
+    private Asunto valittuAsunto;
+
     private ObservableList<Asukas> asukkaat = FXCollections.observableArrayList();
 
     @Override
@@ -50,14 +52,12 @@ public class MuokkaaAsuntoController implements Initializable {
         nimiSarake.setPrefWidth(125);
         nimiSarake.setCellValueFactory(new PropertyValueFactory<>("nimi"));
         asuntoTable.getColumns().add(nimiSarake);
-        asuntoTable.setItems(asukkaat);
 
         //Lisätään asukkaan ikä sarake ja siihen asukkaiden iät
         TableColumn<Asukas, Integer> ikaSarake = new TableColumn<>("Ikä");
         ikaSarake.setPrefWidth(50);
         ikaSarake.setCellValueFactory(new PropertyValueFactory<>("ika"));
         asuntoTable.getColumns().add(ikaSarake);
-        asuntoTable.setItems(asukkaat);
 
         //Lisätään asukkaan sahkoposti sarake ja siihen asukkaiden sahkopostit
         TableColumn<Asukas, String> sahkoPostiSarake = new TableColumn<>("Sähköposti");
@@ -73,6 +73,11 @@ public class MuokkaaAsuntoController implements Initializable {
         suljeMuokkaaButton.setOnAction(actionEvent -> sulje());
     }
 
+    public void setAsuntoTunnus(Asunto asunto){
+        valittuAsunto = asunto;
+        asuntoLabel.setText("Asunto: " + asunto.getTunnus());
+    }
+
     private void avaaAsukkaanTiedot(){
         IO.println("nappia painettu");
         try{
@@ -81,7 +86,7 @@ public class MuokkaaAsuntoController implements Initializable {
             Scene scene = new Scene(root);
 
             AsukkaanTiedotController controller = loader.getController();
-            controller.lisaaAsukasMuokkaaIkkunaan(this.asukkaat);
+            controller.lisaaAsukasMuokkaaIkkunaan(asukkaat);
 
             Stage dialogi = new Stage();
             dialogi.setScene(scene);
@@ -90,6 +95,7 @@ public class MuokkaaAsuntoController implements Initializable {
             dialogi.initModality(Modality.APPLICATION_MODAL);
 
             dialogi.showAndWait();
+            controller.lisaaAsukasMuokkaaIkkunaan(asukkaat);
 
         } catch (IOException e) {
             throw new RuntimeException(e);

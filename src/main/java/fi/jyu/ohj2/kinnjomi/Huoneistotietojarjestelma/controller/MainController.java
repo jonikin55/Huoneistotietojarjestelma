@@ -43,8 +43,13 @@ public class MainController implements Initializable {
         //Lisätään päänykämään columni, jossa näkyy Asuntojen tunnukset
         TableColumn<Asunto, String>  tunnusSarake = new TableColumn<>("Asunnon tunnus");
         tunnusSarake.setPrefWidth(130);
-        tunnusSarake.setCellValueFactory(new PropertyValueFactory<>("tunnus"));
+        tunnusSarake.setCellValueFactory(cd -> cd.getValue().tunnusProperty());
         asuntoTiedotTable.getColumns().add(tunnusSarake);
+
+        TableColumn<Asunto, Number> asukasMaaraSarake = new TableColumn<>("Asukkaiden maara");
+        asukasMaaraSarake.setPrefWidth(130);
+        asukasMaaraSarake.setCellValueFactory(cd -> cd.getValue().asukasMaaraProperty());
+        asuntoTiedotTable.getColumns().add(asukasMaaraSarake);
         asuntoTiedotTable.setItems(asunnot);
 
         lisaaAsuntoButton.setOnAction(actionEvent -> avaaLisaaAsunto());
@@ -71,6 +76,7 @@ public class MainController implements Initializable {
             dialogi.initModality(Modality.APPLICATION_MODAL);
             dialogi.showAndWait();
 
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -79,12 +85,20 @@ public class MainController implements Initializable {
 
     private void avaaMuokkaaAsunto(){
         try{
+            //Pakotetaan käyttäjä valitsemaan, jokin asunto, jotta MuokkaaAsuntoControlleri voidaan avata.
+            Asunto klikattuAsunto = asuntoTiedotTable.getSelectionModel().getSelectedItem();
+            if(klikattuAsunto == null) {
+                IO.println("Muokattava asunto pitää valita hiirellä");
+                return;
+            }
             //Haetaan MuokkaaAsuntoControllerin näykymä ja asetetaan se uuden ikkunan näkymäksi.
             FXMLLoader loader = new FXMLLoader(App.class.getResource("muokkaaAsunto.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
+            //Linkitetään valittu asunto MuokkaaAsuntoControlleriin
             MuokkaaAsuntoController controller = loader.getController();
+            controller.setAsuntoTunnus(klikattuAsunto);
 
             Stage dialogi = new Stage();
             dialogi.setScene(scene);
@@ -93,6 +107,7 @@ public class MainController implements Initializable {
             dialogi.initModality(Modality.APPLICATION_MODAL);
 
             dialogi.showAndWait();
+            asuntoTiedotTable.refresh();
 
         } catch (IOException e) {
             throw new RuntimeException(e);

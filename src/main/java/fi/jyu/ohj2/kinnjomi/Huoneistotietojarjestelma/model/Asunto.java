@@ -1,28 +1,33 @@
 package fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model;
 
+import javafx.beans.Observable;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Asunto {
-    private final String tunnus;
-    private final int asukasMaara;
-    private final ObservableList<Asukas> asukkaat= FXCollections.observableArrayList();
+    private final StringProperty tunnus = new SimpleStringProperty();
+    private final ReadOnlyIntegerWrapper asukasMaara = new ReadOnlyIntegerWrapper();
+    private final ObservableList<Asukas> asukkaat = FXCollections.observableArrayList();
+
 
     public Asunto(String tunnus){
-        this.tunnus = tunnus;
-        this.asukasMaara = 0;
+        setTunnus(tunnus);
+        bindAsukasMaara();
     }
 
-    public String getTunnus() {
-        return tunnus;
-    }
+    public String getTunnus() { return tunnus.get();}
+    public void setTunnus(String tunnus){ this.tunnus.set(tunnus);}
+    public StringProperty tunnusProperty(){ return this.tunnus;}
 
-    public int getAsukasMaara() {
-        return asukkaat.size();
-    }
+    public void bindAsukasMaara() { asukasMaara.bind(javafx.beans.binding.Bindings.size(asukkaat));}
+    public ReadOnlyIntegerWrapper asukasMaaraProperty(){ return asukasMaara;}
+    public int getAsukasMaara(){ return this.asukasMaara.get();}
 
-    public void lisaaAsukas(Asukas asukas){
-        asukkaat.add(asukas);
-    }
+    public void lisaaAsukas(Asukas asukas){ asukkaat.add(asukas);}
+    public void poistaAsukas(Asukas asukas){ asukkaat.remove(asukas);}
 
 }
