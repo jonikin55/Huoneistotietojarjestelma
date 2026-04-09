@@ -45,9 +45,9 @@ public class AsukkaanTiedotController extends HuoneistoController implements Ini
 
     // Käsitellään nimi-, sahkoposti- ja ikaFieldein syötettyä tietoa ja tarkistetaan onko annettu syöte oikeanlaista.
     public void lisaaAsukasListaan() {
-        String nimi = nimiField.getText();
+        String nimi = nimiField.getText().trim();
         String sahkoposti = sahkopostiField.getText();
-        if (!validoiAsukas()) {
+        if (!validoiAsukas(nimi)) {
             return;
         }
         int ika = Integer.parseInt(ikaField.getText());
@@ -56,12 +56,11 @@ public class AsukkaanTiedotController extends HuoneistoController implements Ini
         sulje(suljeAsukasButton);
     }
 
-    private boolean validoiAsukas(){
+    private boolean validoiAsukas(String nimi){
         nimiField.setStyle("");
         sahkopostiField.setStyle("");
         ikaField.setStyle("");
 
-        String nimi = nimiField.getText();
         String sahkoposti = sahkopostiField.getText();
         String ikaString = ikaField.getText();
 
@@ -85,7 +84,7 @@ public class AsukkaanTiedotController extends HuoneistoController implements Ini
             virheIlmoitus(ikaField, "Iän pitää olla kokonaisluku!");
             return false;
         }
-        if(sahkoposti.isBlank() || sahkoposti.isEmpty() || sahkoposti.length() > 20){
+        if(sahkoposti.isBlank() || sahkoposti.isEmpty() || sahkoposti.length() > 25){
             virheIlmoitus(sahkopostiField, "s-posti puuttuu tai liian pitkä!");
             return false;
         }

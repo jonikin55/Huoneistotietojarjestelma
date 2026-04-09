@@ -44,7 +44,11 @@ public class Yhtio {
     }
 
 
-    public void lisaaAsunto(Asunto asunto){ asunnot.add(asunto);
+    public void lisaaAsunto(Asunto asunto){
+        if(asunto == null || asunto.getTunnus().isBlank()){
+            return;
+        }
+        asunnot.add(asunto);
     }
     public void poistaAsunto(Asunto asunto){ asunnot.remove(asunto);}
 }

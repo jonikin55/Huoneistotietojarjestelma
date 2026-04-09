@@ -34,7 +34,17 @@ public class Asunto {
     public ReadOnlyIntegerWrapper asukasMaaraProperty(){ return asukasMaara;}
     public int getAsukasMaara(){ return this.asukasMaara.get();}
 
-    public void lisaaAsukas(Asukas asukas){ asukkaat.add(asukas);}
+    public void lisaaAsukas(Asukas asukas){
+        if(asukas == null || asukas.getNimi().isBlank()){
+            return;
+        }
+        if(asukas.getSahkoposti().length() > 25 || asukas.getSahkoposti().isBlank()) {
+            return;
+        }
+        if(asukas.getIka() < 0 || asukas.getIka() > 125){
+            return;
+        }
+        asukkaat.add(asukas);}
     public void poistaAsukas(Asukas asukas){ asukkaat.remove(asukas);}
     public ObservableList<Asukas> getAsukkaatObservable(){ return asukkaat;}
 
