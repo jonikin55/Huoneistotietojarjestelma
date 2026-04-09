@@ -12,9 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -58,7 +56,7 @@ public class MainController implements Initializable {
 
         lisaaAsuntoButton.setOnAction(actionEvent -> avaaLisaaAsunto());
         muokkaaButton.setOnAction(actionEvent -> avaaMuokkaaAsunto());
-        poistaButton.setOnAction(actionEvent -> poistaAsunto());
+        poistaButton.setOnAction(actionEvent -> poistaAsuntoa());
     }
 
     private void avaaLisaaAsunto(){
@@ -119,8 +117,25 @@ public class MainController implements Initializable {
         IO.println("Avasit muokkaa asuntoa näkymän");
     }
 
-    private void poistaAsunto(){
-        IO.println("Poistit asunnon");
+    public void poistaAsuntoa() {
+        Asunto poistettavaAsunto = asuntoTiedotTable.getSelectionModel().getSelectedItem();
+
+        if (poistettavaAsunto != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Poiston vahvistaminen");
+            alert.setHeaderText("Paina Ok poistaaksesi Asunto: " + poistettavaAsunto.getTunnus());
+            alert.setContentText(poistettavaAsunto.getTunnus() + " ja sen asukkaat poistetaan pysyvästi!");
+
+            alert.showAndWait();
+
+            if (poistettavaAsunto.getAsukkaat() != null) {
+                for (Asukas asukkaat : poistettavaAsunto.getAsukkaat()) {
+                    asukkaat.setAsunto(null);
+                }
+            }
+            asunnot.remove(poistettavaAsunto);
+        }
+        IO.println("Valitse poistettava Asunto");
     }
 
 }

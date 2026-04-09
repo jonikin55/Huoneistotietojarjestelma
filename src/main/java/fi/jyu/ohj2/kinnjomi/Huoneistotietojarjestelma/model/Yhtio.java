@@ -6,15 +6,12 @@ import javafx.collections.ObservableList;
 
 public class Yhtio {
     private final ObservableList<Asunto> asunnot = FXCollections.observableArrayList();
-    public ObservableList<Asunto> getAsunnot(){
-        return asunnot;
+
+    public ObservableList<Asunto> getAsunnot(){return asunnot;
     }
 
-    public void lisaaAsunto(Asunto asunto){
-        asunnot.add(asunto);
+    public void lisaaAsunto(Asunto asunto){ asunnot.add(asunto);
     }
 
-    public void poistaAsunto(Asunto asunto){
-        asunnot.remove(asunto);
-    }
+    public void poistaAsunto(Asunto asunto){}
 }

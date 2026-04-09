@@ -12,10 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -109,7 +106,19 @@ public class MuokkaaAsuntoController implements Initializable {
     }
 
     private void poistaAsukas(){
-        IO.println("Poistit asukaan asunnosta");
+        Asukas poistettavaAsukas = asuntoTable.getSelectionModel().getSelectedItem();
+
+        if (poistettavaAsukas != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Poiston vahvistaminen");
+            alert.setHeaderText("Paina Ok poistaaksesi Asukas: " + poistettavaAsukas.getNimi());
+            alert.setContentText(poistettavaAsukas.getNimi() + " ja sen tiedot poistetaan pysyvästi!");
+
+            alert.showAndWait();
+
+            klikattuAsunto.getAsukkaat().remove(poistettavaAsukas);
+        }
+        IO.println("Valitse poistettava Asunto");
     }
 
     private void sulje(){
