@@ -41,15 +41,31 @@ public class LisaaAsuntoController implements Initializable {
     //Käsitellään tunnusField tekstikenttään annettu syöte
     private void lisaaAsuntoListaan(){
         String syote = tunnusField.getText();
-        if(!syote.isEmpty() ){
-            Asunto uusiAsunto = new Asunto(syote);
-            yhtio.lisaaAsunto(uusiAsunto);
+        if(!validoiAsunto()){
+           return;
+        }
+        Asunto uusiAsunto = new Asunto(syote);
+        yhtio.lisaaAsunto(uusiAsunto);
+        tunnusField.clear();
+        tunnusField.requestFocus();
+    }
+
+    private boolean validoiAsunto(){
+        tunnusField.setStyle("");
+        String syote = tunnusField.getText();
+
+        if(syote.isBlank() || syote.isEmpty()){
+            tunnusField.setStyle("-fx-border-color: red; -fx-background-color: #ffcccc;");
+            tunnusField.setPromptText("Tunnus puuttuu!");
+            return false;
+        }
+        if(syote.length() > 8){
+            tunnusField.setStyle("-fx-border-color: red; -fx-background-color: #ffcccc;");
             tunnusField.clear();
-            tunnusField.requestFocus();
+            tunnusField.setPromptText("Enintään 8 merkkiä!");
+            return false;
         }
-        else{
-            IO.println("Ei onnistunut");
-        }
+        return true;
     }
 
     public void sulje(){

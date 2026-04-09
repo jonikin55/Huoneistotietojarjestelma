@@ -42,4 +42,5 @@ public class Asunto {
     public List<Asukas> getAsukkaat() { return new ArrayList<>(asukkaat); }
     public void setAsukkaat(List<Asukas> asukkaatLista) { asukkaat.setAll(asukkaatLista); }
 
+
 }

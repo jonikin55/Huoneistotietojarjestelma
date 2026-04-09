@@ -141,4 +141,6 @@ public class MainController implements Initializable {
         IO.println("Valitse poistettava Asunto");
     }
 
+
+
 }

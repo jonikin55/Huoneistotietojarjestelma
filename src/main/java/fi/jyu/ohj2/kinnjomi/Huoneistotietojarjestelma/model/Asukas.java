@@ -32,5 +32,4 @@ public class Asukas {
     public StringProperty sahkopostiProperty(){ return this.sahkoposti;}
     public IntegerProperty ikaProperty(){ return this.ika;}
 
-
 }

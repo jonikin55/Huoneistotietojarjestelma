@@ -92,7 +92,6 @@ public class MuokkaaAsuntoController implements Initializable {
             AsukkaanTiedotController controller = loader.getController();
             //controller.lisaaAsukasMuokkaaIkkunaan(klikattuAsunto);
             controller.setAsunto(klikattuAsunto);
-            controller.setYhtio(yhtio);
             Stage dialogi = new Stage();
             dialogi.setScene(scene);
 

@@ -43,6 +43,66 @@ public class AsukkaanTiedotController implements Initializable {
         suljeAsukasButton.setOnAction(actionEvent -> sulje());
     }
 
+    // Käsitellään nimi-, sahkoposti- ja ikaFieldein syötettyä tietoa ja tarkistetaan onko annettu syöte oikeanlaista.
+    public void lisaaAsukasListaan() {
+        String nimi = nimiField.getText();
+        String sahkoposti = sahkopostiField.getText();
+        if (!validoiAsukas()) {
+            return;
+        }
+        int ika = Integer.parseInt(ikaField.getText());
+        asukas = new Asukas(nimi, ika, sahkoposti);
+        klikattuasunto.lisaaAsukas(asukas);
+        sulje();
+    }
+
+    private boolean validoiAsukas(){
+        nimiField.setStyle("");
+        sahkopostiField.setStyle("");
+        ikaField.setStyle("");
+
+        String nimi = nimiField.getText();
+        String sahkoposti = sahkopostiField.getText();
+        String ikaString = ikaField.getText();
+
+        if(nimi.isBlank() || nimi.isEmpty() || nimi.length() > 20){
+            virheIlmoitus(nimiField, "nimi puuttuu tai liian pitkä!");
+            return false;
+        }
+        try{
+            if(ikaString.isEmpty() || ikaString.isBlank()){
+                virheIlmoitus(ikaField, "Aseta ika!");
+                return false;
+            }
+
+            int ika = Integer.parseInt(ikaField.getText());
+
+            if(ika < 0 || ika > 125){
+                virheIlmoitus(ikaField, "Anna oikea ikä!");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            virheIlmoitus(ikaField, "Iän pitää olla kokonaisluku!");
+            return false;
+        }
+        if(sahkoposti.isBlank() || sahkoposti.isEmpty() || sahkoposti.length() > 20){
+            virheIlmoitus(sahkopostiField, "s-posti puuttuu tai liian pitkä!");
+            return false;
+        }
+
+        return true;
+    }
+
+    public void virheIlmoitus(TextField syottoField, String virheTeksti){
+        syottoField.setStyle("-fx-border-color: red; -fx-background-color: #ffcccc;");
+        syottoField.clear();
+        syottoField.setPromptText(virheTeksti);
+    }
+
+    public void setAsunto(Asunto asunto) {
+        this.klikattuasunto = asunto;
+    }
+
     public void sulje(){
         Scene scene = nimiField.getScene();
         Stage ikkuna = (Stage) scene.getWindow();
@@ -50,29 +110,4 @@ public class AsukkaanTiedotController implements Initializable {
         IO.println("Suljit Asukkaan tiedot ikkunan");
     }
 
-
-    // Käsitellään nimi-, sahkoposti- ja ikaFieldein syötettyä tietoa ja tarkistetaan onko annettu syöte oikeanlaista.
-    public void lisaaAsukasListaan() {
-        String nimi = nimiField.getText();
-        String sahkoposti = sahkopostiField.getText();
-        int ika = 0;
-        try {
-            ika = Integer.parseInt(ikaField.getText());
-        } catch (NumberFormatException e) {
-            IO.println("Iän pitää olla kokonaisluku");
-            return;
-        }
-
-        if (!nimi.isEmpty() && !sahkoposti.isEmpty()) {
-            asukas = new Asukas(nimi, ika, sahkoposti);
-            klikattuasunto.lisaaAsukas(asukas);
-            sulje();
-        } else {
-            IO.println("Asukkaan kaikki tiedot tulee täyttää");
-        }
-    }
-    public void setAsunto(Asunto asunto) {
-        this.klikattuasunto = asunto;
-    }
-    public void setYhtio(Yhtio yhtio){this.yhtio = yhtio;}
 }
