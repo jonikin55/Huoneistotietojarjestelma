@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class MainController extends HuoneistoController implements Initializable  {
     @FXML
     private TableView<Asunto> asuntoTiedotTable;
 
@@ -92,7 +92,9 @@ public class MainController implements Initializable {
             //Pakotetaan käyttäjä valitsemaan, jokin asunto, jotta MuokkaaAsuntoControlleri voidaan avata.
             Asunto klikattuAsunto = asuntoTiedotTable.getSelectionModel().getSelectedItem();
             if(klikattuAsunto == null) {
-                IO.println("Muokattava asunto pitää valita hiirellä");
+                varoitus("Asunto puuttuu",
+                        "",
+                        "Muokataksesi asuntoa sinun täytyy ensin valita asunto");
                 return;
             }
             //Haetaan MuokkaaAsuntoControllerin näykymä ja asetetaan se uuden ikkunan näkymäksi.
@@ -124,12 +126,9 @@ public class MainController implements Initializable {
         Asunto poistettavaAsunto = asuntoTiedotTable.getSelectionModel().getSelectedItem();
 
         if (poistettavaAsunto != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Poiston vahvistaminen");
-            alert.setHeaderText("Paina Ok poistaaksesi Asunto: " + poistettavaAsunto.getTunnus());
-            alert.setContentText(poistettavaAsunto.getTunnus() + " ja sen asukkaat poistetaan pysyvästi!");
-
-            alert.showAndWait();
+            varoitus("Poiston vahvistaminen",
+                    "Paina OK poistaaksesi valittu asunto",
+                    "Asunto ja sen asukkaat poistetaan pysyvästi");
 
             if (poistettavaAsunto.getAsukkaat() != null) {
                 for (Asukas asukkaat : poistettavaAsunto.getAsukkaat()) {
@@ -137,10 +136,8 @@ public class MainController implements Initializable {
                 }
             }
             yhtio.poistaAsunto(poistettavaAsunto);
-        }
-        IO.println("Valitse poistettava Asunto");
+        }else varoitus("Valitse poistettava asunto",
+                "",
+        "Poistaaksesi asunnon, sinun täytyy ensin valita asunto");
     }
-
-
-
 }

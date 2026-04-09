@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AsukkaanTiedotController implements Initializable {
+public class AsukkaanTiedotController extends HuoneistoController implements Initializable {
     @FXML
     private TextField nimiField;
 
@@ -40,7 +40,7 @@ public class AsukkaanTiedotController implements Initializable {
         ikaField.setOnAction(actionEvent -> lisaaAsukasListaan());
         sahkopostiField.setOnAction(actionEvent -> lisaaAsukasListaan());
         lisaaTiedotButton.setOnAction(actionEvent -> lisaaAsukasListaan());
-        suljeAsukasButton.setOnAction(actionEvent -> sulje());
+        suljeAsukasButton.setOnAction(actionEvent -> sulje(suljeAsukasButton));
     }
 
     // Käsitellään nimi-, sahkoposti- ja ikaFieldein syötettyä tietoa ja tarkistetaan onko annettu syöte oikeanlaista.
@@ -53,7 +53,7 @@ public class AsukkaanTiedotController implements Initializable {
         int ika = Integer.parseInt(ikaField.getText());
         asukas = new Asukas(nimi, ika, sahkoposti);
         klikattuasunto.lisaaAsukas(asukas);
-        sulje();
+        sulje(suljeAsukasButton);
     }
 
     private boolean validoiAsukas(){
@@ -93,21 +93,8 @@ public class AsukkaanTiedotController implements Initializable {
         return true;
     }
 
-    public void virheIlmoitus(TextField syottoField, String virheTeksti){
-        syottoField.setStyle("-fx-border-color: red; -fx-background-color: #ffcccc;");
-        syottoField.clear();
-        syottoField.setPromptText(virheTeksti);
-    }
-
     public void setAsunto(Asunto asunto) {
         this.klikattuasunto = asunto;
-    }
-
-    public void sulje(){
-        Scene scene = nimiField.getScene();
-        Stage ikkuna = (Stage) scene.getWindow();
-        ikkuna.close();
-        IO.println("Suljit Asukkaan tiedot ikkunan");
     }
 
 }

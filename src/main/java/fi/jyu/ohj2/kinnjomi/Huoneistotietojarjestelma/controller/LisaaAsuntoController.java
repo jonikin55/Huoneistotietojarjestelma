@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LisaaAsuntoController implements Initializable {
+public class LisaaAsuntoController extends HuoneistoController implements Initializable {
     @FXML
     private TextField tunnusField;
 
@@ -30,7 +30,7 @@ public class LisaaAsuntoController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tunnusField.setOnAction(actionEvent -> lisaaAsuntoListaan());
         lisaaAsuntoButton.setOnAction(actionEvent -> lisaaAsuntoListaan());
-        suljeLisaaAsuntoButton.setOnAction(actionEvent -> sulje());
+        suljeLisaaAsuntoButton.setOnAction(actionEvent -> sulje(suljeLisaaAsuntoButton));
     }
 
     //Linkittää LisaaAsuntoControllerin asunnot listan MainControllerin asunnot listan kanssa.
@@ -55,23 +55,14 @@ public class LisaaAsuntoController implements Initializable {
         String syote = tunnusField.getText();
 
         if(syote.isBlank() || syote.isEmpty()){
-            tunnusField.setStyle("-fx-border-color: red; -fx-background-color: #ffcccc;");
-            tunnusField.setPromptText("Tunnus puuttuu!");
+            virheIlmoitus(tunnusField, "Tunnus puuttuu!");
             return false;
         }
         if(syote.length() > 8){
-            tunnusField.setStyle("-fx-border-color: red; -fx-background-color: #ffcccc;");
-            tunnusField.clear();
-            tunnusField.setPromptText("Enintään 8 merkkiä!");
+            virheIlmoitus(tunnusField, "Enintään 8 merkkiä!");
             return false;
         }
         return true;
     }
 
-    public void sulje(){
-        Scene scene = tunnusField.getScene();
-        Stage ikkuna = (Stage) scene.getWindow();
-        ikkuna.close();
-        IO.println("Suljit lisaa asunto näkymän");
-    }
 }

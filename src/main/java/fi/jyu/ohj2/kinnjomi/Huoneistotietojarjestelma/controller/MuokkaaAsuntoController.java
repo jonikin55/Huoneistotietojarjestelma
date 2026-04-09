@@ -22,7 +22,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class MuokkaaAsuntoController implements Initializable {
+public class MuokkaaAsuntoController  extends HuoneistoController implements Initializable {
     @FXML
     private TableView<Asukas> asuntoTable;
 
@@ -69,7 +69,7 @@ public class MuokkaaAsuntoController implements Initializable {
 
         lisaaAsukasButton.setOnAction(actionEvent -> avaaAsukkaanTiedot());
         poistaAsukasButton.setOnAction(actionEvent -> poistaAsukas());
-        suljeMuokkaaButton.setOnAction(actionEvent -> sulje());
+        suljeMuokkaaButton.setOnAction(actionEvent -> sulje(suljeMuokkaaButton));
 
         asuntoTable.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->
                 valittuAsukas = newVal
@@ -83,7 +83,6 @@ public class MuokkaaAsuntoController implements Initializable {
     }
 
     private void avaaAsukkaanTiedot(){
-        IO.println("nappia painettu");
         try{
             FXMLLoader loader = new FXMLLoader(App.class.getResource("asukkaanTiedot.fxml"));
             Parent root = loader.load();
@@ -105,34 +104,26 @@ public class MuokkaaAsuntoController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        IO.println("Avasit asukkaan tietojen lisäys ikkunan");
     }
 
     private void poistaAsukas(){
         Asukas poistettavaAsukas = asuntoTable.getSelectionModel().getSelectedItem();
 
         if (poistettavaAsukas != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Poiston vahvistaminen");
-            alert.setHeaderText("Paina Ok poistaaksesi Asukas: " + poistettavaAsukas.getNimi());
-            alert.setContentText(poistettavaAsukas.getNimi() + " ja sen tiedot poistetaan pysyvästi!");
-
-            alert.showAndWait();
+            varoitus("Poiston vahvistaminen",
+                    "Paina OK poistaaksesti Asukas: " + poistettavaAsukas.getNimi(),
+            poistettavaAsukas.getNimi() + " ja hänen tiedot poistetaan pysyvästi!");
 
             klikattuAsunto.poistaAsukas(poistettavaAsukas);
             yhtio.tallenna();
+        } else {
+            varoitus("Poistettava asukas",
+                    "",
+                    "Valitse poistettava asukas");
         }
-        IO.println("Valitse poistettava Asunto");
     }
 
     public void setYhtio(Yhtio yhtio){
         this.yhtio = yhtio;
-    }
-
-    private void sulje(){
-        Scene scene = asuntoTable.getScene();
-        Stage ikkuna = (Stage) scene.getWindow();
-        ikkuna.close();
-        IO.println("Suljit muokkaa asuntoa ikkunan");
     }
 }
