@@ -11,6 +11,8 @@ public class Asukas {
     private final IntegerProperty ika = new SimpleIntegerProperty(0);
     private Asunto asunto;
 
+    public Asukas(){}
+
     public Asukas(String nimi, int ika, String sahkoposti) {
         setNimi(nimi);
         setSahkoposti(sahkoposti);
@@ -29,5 +31,6 @@ public class Asukas {
     public StringProperty nimiProperty(){ return this.nimi;}
     public StringProperty sahkopostiProperty(){ return this.sahkoposti;}
     public IntegerProperty ikaProperty(){ return this.ika;}
+
 
 }

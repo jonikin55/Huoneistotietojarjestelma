@@ -1,5 +1,6 @@
 package fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.beans.Observable;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
@@ -8,11 +9,17 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Asunto {
     private final StringProperty tunnus = new SimpleStringProperty();
     private final ReadOnlyIntegerWrapper asukasMaara = new ReadOnlyIntegerWrapper();
     private final ObservableList<Asukas> asukkaat = FXCollections.observableArrayList();
 
+    public Asunto(){
+        bindAsukasMaara();
+    }
 
     public Asunto(String tunnus){
         setTunnus(tunnus);
@@ -29,6 +36,10 @@ public class Asunto {
 
     public void lisaaAsukas(Asukas asukas){ asukkaat.add(asukas);}
     public void poistaAsukas(Asukas asukas){ asukkaat.remove(asukas);}
-    public ObservableList<Asukas> getAsukkaat(){ return asukkaat;}
+    public ObservableList<Asukas> getAsukkaatObservable(){ return asukkaat;}
+
+    // Apumetodeja, joilla Tallenna metodi aktivoituu, kun Asuntoon lisätään tai poistetaan Asukkaita
+    public List<Asukas> getAsukkaat() { return new ArrayList<>(asukkaat); }
+    public void setAsukkaat(List<Asukas> asukkaatLista) { asukkaat.setAll(asukkaatLista); }
 
 }

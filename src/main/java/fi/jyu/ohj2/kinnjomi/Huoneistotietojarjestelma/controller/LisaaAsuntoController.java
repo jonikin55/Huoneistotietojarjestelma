@@ -24,7 +24,7 @@ public class LisaaAsuntoController implements Initializable {
     @FXML
     private Button suljeLisaaAsuntoButton;
 
-    private ObservableList<Asunto> asunnot;
+    private Yhtio yhtio = new Yhtio();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -34,8 +34,8 @@ public class LisaaAsuntoController implements Initializable {
     }
 
     //Linkittää LisaaAsuntoControllerin asunnot listan MainControllerin asunnot listan kanssa.
-    public void lisaaAsuntoPaaIkkunaan(ObservableList<Asunto> asunnot) {
-        this.asunnot = asunnot;
+    public void lisaaAsuntoPaaIkkunaan(Yhtio yhtio) {
+        this.yhtio = yhtio;
     }
 
     //Käsitellään tunnusField tekstikenttään annettu syöte
@@ -43,7 +43,7 @@ public class LisaaAsuntoController implements Initializable {
         String syote = tunnusField.getText();
         if(!syote.isEmpty() ){
             Asunto uusiAsunto = new Asunto(syote);
-            asunnot.add(uusiAsunto);
+            yhtio.lisaaAsunto(uusiAsunto);
             tunnusField.clear();
             tunnusField.requestFocus();
         }

@@ -34,7 +34,7 @@ public class MainController implements Initializable {
     @FXML
     private Button poistaButton;
 
-    private ObservableList<Asunto> asunnot = FXCollections.observableArrayList();
+    private final Yhtio yhtio = new Yhtio();
     private Asunto klikattuAsunto;
 
     @Override
@@ -49,11 +49,13 @@ public class MainController implements Initializable {
         asukasMaaraSarake.setPrefWidth(130);
         asukasMaaraSarake.setCellValueFactory(cd -> cd.getValue().asukasMaaraProperty());
         asuntoTiedotTable.getColumns().add(asukasMaaraSarake);
-        asuntoTiedotTable.setItems(asunnot);
+        asuntoTiedotTable.setItems(yhtio.getAsunnot());
+
         asuntoTiedotTable.getSelectionModel().selectedItemProperty().addListener((_, _, newVal) ->
                 klikattuAsunto = newVal)
         ;
 
+        yhtio.lataa();
         lisaaAsuntoButton.setOnAction(actionEvent -> avaaLisaaAsunto());
         muokkaaButton.setOnAction(actionEvent -> avaaMuokkaaAsunto());
         poistaButton.setOnAction(actionEvent -> poistaAsuntoa());
@@ -68,7 +70,7 @@ public class MainController implements Initializable {
 
             //Linkitetään asunnot lista MainControllerin ja lisaaAsuntoControllerin välille.
             LisaaAsuntoController controller = loader.getController();
-            controller.lisaaAsuntoPaaIkkunaan(this.asunnot);
+            controller.lisaaAsuntoPaaIkkunaan(yhtio);
 
             Stage dialogi = new Stage();
             dialogi.setScene(scene);
@@ -101,6 +103,7 @@ public class MainController implements Initializable {
             //Linkitetään valittu asunto MuokkaaAsuntoControlleriin
             MuokkaaAsuntoController controller = loader.getController();
             controller.setAsunto(klikattuAsunto);
+            controller.setYhtio(yhtio);
 
             Stage dialogi = new Stage();
             dialogi.setScene(scene);
@@ -109,7 +112,7 @@ public class MainController implements Initializable {
             dialogi.initModality(Modality.APPLICATION_MODAL);
 
             dialogi.showAndWait();
-            asuntoTiedotTable.refresh();
+            yhtio.tallenna();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -133,7 +136,7 @@ public class MainController implements Initializable {
                     asukkaat.setAsunto(null);
                 }
             }
-            asunnot.remove(poistettavaAsunto);
+            yhtio.poistaAsunto(poistettavaAsunto);
         }
         IO.println("Valitse poistettava Asunto");
     }

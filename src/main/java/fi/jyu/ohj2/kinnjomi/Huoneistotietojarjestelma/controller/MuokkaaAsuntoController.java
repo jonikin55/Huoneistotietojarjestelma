@@ -42,6 +42,7 @@ public class MuokkaaAsuntoController implements Initializable {
     private Asukas valittuAsukas;
 
     private ObservableList<Asukas> asukkaat = FXCollections.observableArrayList();
+    private Yhtio yhtio;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -77,7 +78,7 @@ public class MuokkaaAsuntoController implements Initializable {
 
     public void setAsunto(Asunto asunto){
         klikattuAsunto = asunto;
-        asuntoTable.setItems(klikattuAsunto.getAsukkaat());
+        asuntoTable.setItems(klikattuAsunto.getAsukkaatObservable());
         asuntoLabel.setText("Asunto: " + asunto.getTunnus());
     }
 
@@ -91,6 +92,7 @@ public class MuokkaaAsuntoController implements Initializable {
             AsukkaanTiedotController controller = loader.getController();
             //controller.lisaaAsukasMuokkaaIkkunaan(klikattuAsunto);
             controller.setAsunto(klikattuAsunto);
+            controller.setYhtio(yhtio);
             Stage dialogi = new Stage();
             dialogi.setScene(scene);
 
@@ -98,6 +100,8 @@ public class MuokkaaAsuntoController implements Initializable {
             dialogi.initModality(Modality.APPLICATION_MODAL);
 
             dialogi.showAndWait();
+
+            yhtio.tallenna();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -116,9 +120,14 @@ public class MuokkaaAsuntoController implements Initializable {
 
             alert.showAndWait();
 
-            klikattuAsunto.getAsukkaat().remove(poistettavaAsukas);
+            klikattuAsunto.poistaAsukas(poistettavaAsukas);
+            yhtio.tallenna();
         }
         IO.println("Valitse poistettava Asunto");
+    }
+
+    public void setYhtio(Yhtio yhtio){
+        this.yhtio = yhtio;
     }
 
     private void sulje(){
