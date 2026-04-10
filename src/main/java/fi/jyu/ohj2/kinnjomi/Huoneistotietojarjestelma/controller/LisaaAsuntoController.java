@@ -1,15 +1,12 @@
 package fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.controller;
 
-import fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model.Asukas;
 import fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model.Asunto;
 import fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model.Yhtio;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -53,7 +50,7 @@ public class LisaaAsuntoController extends HuoneistoController implements Initia
     private boolean validoiAsunto(String syote) {
         tunnusField.setStyle("");
 
-        if (syote.isBlank() || syote.isEmpty()) {
+        if (syote.isBlank()) {
             virheIlmoitus(tunnusField, "Tunnus puuttuu!");
             return false;
         }

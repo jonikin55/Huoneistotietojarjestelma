@@ -1,16 +1,11 @@
 package fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Comparator;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import tools.jackson.core.JacksonException;
 import tools.jackson.core.type.TypeReference;

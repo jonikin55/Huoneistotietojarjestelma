@@ -1,8 +1,5 @@
 package fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import javafx.beans.Observable;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

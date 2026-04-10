@@ -4,16 +4,12 @@ import fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model.Asukas;
 import fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model.Asunto;
 import fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model.Yhtio;
 import fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.App;
-import fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.controller.MuokkaaAsuntoController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
