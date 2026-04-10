@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 public abstract class HuoneistoController {
 
     //Luodaan näytölle varoitus/kehote mikäli käyttäjä sitä tarvii
-    public void varoitus(String title, String header, String content){
+    public void varoitus(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
         alert.setHeaderText(header);
@@ -20,7 +20,7 @@ public abstract class HuoneistoController {
     }
 
     //Controllerien yhteinen sulje metodi
-    public void sulje(Button nappi){
+    public void sulje(Button nappi) {
         Scene scene = nappi.getScene();
         Stage ikkuna = (Stage) scene.getWindow();
         ikkuna.close();
@@ -28,7 +28,7 @@ public abstract class HuoneistoController {
 
 
     //Antaa käyttäjälle virheilmoituksen mikäli käyttäjän antama syöte on puutteelista
-    public void virheIlmoitus(TextField syottoField, String virheTeksti){
+    public void virheIlmoitus(TextField syottoField, String virheTeksti) {
         syottoField.setStyle("-fx-border-color: red; -fx-background-color: #ffcccc;");
         syottoField.clear();
         syottoField.setPromptText(virheTeksti);

@@ -17,40 +17,68 @@ public class Asunto {
     private final ReadOnlyIntegerWrapper asukasMaara = new ReadOnlyIntegerWrapper();
     private final ObservableList<Asukas> asukkaat = FXCollections.observableArrayList();
 
-    public Asunto(){
+    public Asunto() {
         bindAsukasMaara();
     }
 
-    public Asunto(String tunnus){
+    public Asunto(String tunnus) {
         setTunnus(tunnus);
         bindAsukasMaara();
     }
 
-    public String getTunnus() { return this.tunnus.get();}
-    public void setTunnus(String tunnus){ this.tunnus.set(tunnus);}
-    public StringProperty tunnusProperty(){ return this.tunnus;}
+    public String getTunnus() {
+        return this.tunnus.get();
+    }
 
-    public void bindAsukasMaara() { asukasMaara.bind(javafx.beans.binding.Bindings.size(asukkaat));}
-    public ReadOnlyIntegerWrapper asukasMaaraProperty(){ return asukasMaara;}
-    public int getAsukasMaara(){ return this.asukasMaara.get();}
+    public void setTunnus(String tunnus) {
+        this.tunnus.set(tunnus);
+    }
 
-    public void lisaaAsukas(Asukas asukas){
-        if(asukas == null || asukas.getNimi().isBlank()){
+    public StringProperty tunnusProperty() {
+        return this.tunnus;
+    }
+
+    public void bindAsukasMaara() {
+        asukasMaara.bind(javafx.beans.binding.Bindings.size(asukkaat));
+    }
+
+    public ReadOnlyIntegerWrapper asukasMaaraProperty() {
+        return asukasMaara;
+    }
+
+    public int getAsukasMaara() {
+        return this.asukasMaara.get();
+    }
+
+    public void lisaaAsukas(Asukas asukas) {
+        if (asukas == null || asukas.getNimi().isBlank()) {
             return;
         }
-        if(asukas.getSahkoposti().length() > 25 || asukas.getSahkoposti().isBlank()) {
+        if (asukas.getSahkoposti().length() > 25 || asukas.getSahkoposti().isBlank()) {
             return;
         }
-        if(asukas.getIka() < 0 || asukas.getIka() > 125){
+        if (asukas.getIka() < 0 || asukas.getIka() > 125) {
             return;
         }
-        asukkaat.add(asukas);}
-    public void poistaAsukas(Asukas asukas){ asukkaat.remove(asukas);}
-    public ObservableList<Asukas> getAsukkaatObservable(){ return asukkaat;}
+        asukkaat.add(asukas);
+    }
+
+    public void poistaAsukas(Asukas asukas) {
+        asukkaat.remove(asukas);
+    }
+
+    public ObservableList<Asukas> getAsukkaatObservable() {
+        return asukkaat;
+    }
 
     // Apumetodeja, joilla Tallenna metodi aktivoituu, kun Asuntoon lisätään tai poistetaan Asukkaita
-    public List<Asukas> getAsukkaat() { return new ArrayList<>(asukkaat); }
-    public void setAsukkaat(List<Asukas> asukkaatLista) { asukkaat.setAll(asukkaatLista); }
+    public List<Asukas> getAsukkaat() {
+        return new ArrayList<>(asukkaat);
+    }
+
+    public void setAsukkaat(List<Asukas> asukkaatLista) {
+        asukkaat.setAll(asukkaatLista);
+    }
 
 
 }

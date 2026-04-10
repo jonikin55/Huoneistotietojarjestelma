@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class lisaaAsukasTest {
 
     @Test
-    void lisaaAsukas_lisaaAsukasListaan(){
+    void lisaaAsukas_lisaaAsukasListaan() {
         Asunto asunto = new Asunto();
         Asukas asukas = new Asukas("Kalle", 22, "kalle@gmail.com");
         asunto.lisaaAsukas(asukas);
@@ -21,7 +21,7 @@ public class lisaaAsukasTest {
     }
 
     @Test
-    void lisaaAsukas_eiLisaaAsukasListaan(){
+    void lisaaAsukas_eiLisaaAsukasListaan() {
         Asunto asunto = new Asunto();
         Asukas asukas1 = new Asukas("", 22, "kalle@gmail.com");
         Asukas asukas2 = new Asukas("Kalle", 1267, "kalle@gmail.com");
@@ -34,7 +34,7 @@ public class lisaaAsukasTest {
     }
 
     @Test
-    void poistaAsukas_poistaAsukasListasta(){
+    void poistaAsukas_poistaAsukasListasta() {
         Asunto asunto = new Asunto();
         Asukas asukas = new Asukas("Kalle", 22, "kalle@gmail.com");
         asunto.lisaaAsukas(asukas);

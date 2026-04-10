@@ -56,7 +56,7 @@ public class AsukkaanTiedotController extends HuoneistoController implements Ini
         sulje(suljeAsukasButton);
     }
 
-    private boolean validoiAsukas(String nimi){
+    private boolean validoiAsukas(String nimi) {
         nimiField.setStyle("");
         sahkopostiField.setStyle("");
         ikaField.setStyle("");
@@ -64,19 +64,19 @@ public class AsukkaanTiedotController extends HuoneistoController implements Ini
         String sahkoposti = sahkopostiField.getText();
         String ikaString = ikaField.getText();
 
-        if(nimi.isBlank() || nimi.isEmpty() || nimi.length() > 20){
+        if (nimi.isBlank() || nimi.isEmpty() || nimi.length() > 20) {
             virheIlmoitus(nimiField, "nimi puuttuu tai liian pitkä!");
             return false;
         }
-        try{
-            if(ikaString.isEmpty() || ikaString.isBlank()){
+        try {
+            if (ikaString.isEmpty() || ikaString.isBlank()) {
                 virheIlmoitus(ikaField, "Aseta ika!");
                 return false;
             }
 
             int ika = Integer.parseInt(ikaField.getText());
 
-            if(ika < 0 || ika > 125){
+            if (ika < 0 || ika > 125) {
                 virheIlmoitus(ikaField, "Anna oikea ikä!");
                 return false;
             }
@@ -84,7 +84,7 @@ public class AsukkaanTiedotController extends HuoneistoController implements Ini
             virheIlmoitus(ikaField, "Iän pitää olla kokonaisluku!");
             return false;
         }
-        if(sahkoposti.isBlank() || sahkoposti.isEmpty() || sahkoposti.length() > 25){
+        if (sahkoposti.isBlank() || sahkoposti.isEmpty() || sahkoposti.length() > 25) {
             virheIlmoitus(sahkopostiField, "s-posti puuttuu tai liian pitkä!");
             return false;
         }

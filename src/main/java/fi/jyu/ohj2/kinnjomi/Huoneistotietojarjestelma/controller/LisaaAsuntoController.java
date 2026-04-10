@@ -39,10 +39,10 @@ public class LisaaAsuntoController extends HuoneistoController implements Initia
     }
 
     //Käsitellään tunnusField tekstikenttään annettu syöte
-    private void lisaaAsuntoListaan(){
+    private void lisaaAsuntoListaan() {
         String syote = tunnusField.getText().trim();
-        if(!validoiAsunto(syote)){
-           return;
+        if (!validoiAsunto(syote)) {
+            return;
         }
         Asunto uusiAsunto = new Asunto(syote);
         yhtio.lisaaAsunto(uusiAsunto);
@@ -50,14 +50,14 @@ public class LisaaAsuntoController extends HuoneistoController implements Initia
         tunnusField.requestFocus();
     }
 
-    private boolean validoiAsunto(String syote){
+    private boolean validoiAsunto(String syote) {
         tunnusField.setStyle("");
 
-        if(syote.isBlank() || syote.isEmpty()){
+        if (syote.isBlank() || syote.isEmpty()) {
             virheIlmoitus(tunnusField, "Tunnus puuttuu!");
             return false;
         }
-        if(syote.length() > 8){
+        if (syote.length() > 8) {
             virheIlmoitus(tunnusField, "Enintään 8 merkkiä!");
             return false;
         }

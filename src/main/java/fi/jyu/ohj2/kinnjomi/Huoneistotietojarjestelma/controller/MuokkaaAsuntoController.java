@@ -22,7 +22,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class MuokkaaAsuntoController  extends HuoneistoController implements Initializable {
+public class MuokkaaAsuntoController extends HuoneistoController implements Initializable {
     @FXML
     private TableView<Asukas> asuntoTable;
 
@@ -33,7 +33,7 @@ public class MuokkaaAsuntoController  extends HuoneistoController implements Ini
     private Button lisaaAsukasButton;
 
     @FXML
-    private Button  poistaAsukasButton;
+    private Button poistaAsukasButton;
 
     @FXML
     private Button suljeMuokkaaButton;
@@ -66,7 +66,6 @@ public class MuokkaaAsuntoController  extends HuoneistoController implements Ini
         asuntoTable.setItems(asukkaat);
 
 
-
         lisaaAsukasButton.setOnAction(actionEvent -> avaaAsukkaanTiedot());
         poistaAsukasButton.setOnAction(actionEvent -> poistaAsukas());
         suljeMuokkaaButton.setOnAction(actionEvent -> sulje(suljeMuokkaaButton));
@@ -76,14 +75,14 @@ public class MuokkaaAsuntoController  extends HuoneistoController implements Ini
         );
     }
 
-    public void setAsunto(Asunto asunto){
+    public void setAsunto(Asunto asunto) {
         klikattuAsunto = asunto;
         asuntoTable.setItems(klikattuAsunto.getAsukkaatObservable());
         asuntoLabel.setText("Asunto: " + asunto.getTunnus());
     }
 
-    private void avaaAsukkaanTiedot(){
-        try{
+    private void avaaAsukkaanTiedot() {
+        try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("asukkaanTiedot.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
@@ -106,13 +105,13 @@ public class MuokkaaAsuntoController  extends HuoneistoController implements Ini
         }
     }
 
-    private void poistaAsukas(){
+    private void poistaAsukas() {
         Asukas poistettavaAsukas = asuntoTable.getSelectionModel().getSelectedItem();
 
         if (poistettavaAsukas != null) {
             varoitus("Poiston vahvistaminen",
                     "Paina OK poistaaksesti Asukas: " + poistettavaAsukas.getNimi(),
-            poistettavaAsukas.getNimi() + " ja hänen tiedot poistetaan pysyvästi!");
+                    poistettavaAsukas.getNimi() + " ja hänen tiedot poistetaan pysyvästi!");
 
             klikattuAsunto.poistaAsukas(poistettavaAsukas);
             yhtio.tallenna();
@@ -123,7 +122,7 @@ public class MuokkaaAsuntoController  extends HuoneistoController implements Ini
         }
     }
 
-    public void setYhtio(Yhtio yhtio){
+    public void setYhtio(Yhtio yhtio) {
         this.yhtio = yhtio;
     }
 }

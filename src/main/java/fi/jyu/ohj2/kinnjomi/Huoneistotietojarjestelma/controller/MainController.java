@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainController extends HuoneistoController implements Initializable  {
+public class MainController extends HuoneistoController implements Initializable {
     @FXML
     private TableView<Asunto> asuntoTiedotTable;
 
@@ -40,7 +40,7 @@ public class MainController extends HuoneistoController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Lisätään päänykämään columni, jossa näkyy Asuntojen tunnukset
-        TableColumn<Asunto, String>  tunnusSarake = new TableColumn<>("Asunnon tunnus");
+        TableColumn<Asunto, String> tunnusSarake = new TableColumn<>("Asunnon tunnus");
         tunnusSarake.setPrefWidth(130);
         tunnusSarake.setCellValueFactory(cd -> cd.getValue().tunnusProperty());
         asuntoTiedotTable.getColumns().add(tunnusSarake);
@@ -61,8 +61,8 @@ public class MainController extends HuoneistoController implements Initializable
         poistaButton.setOnAction(actionEvent -> poistaAsuntoa());
     }
 
-    private void avaaLisaaAsunto(){
-        try{
+    private void avaaLisaaAsunto() {
+        try {
             //Haetaan LisaaAsuntoControllerin näykymä ja asetetaan se uuden ikkunan näkymäksi.
             FXMLLoader loader = new FXMLLoader(App.class.getResource("lisaaAsunto.fxml"));
             Parent root = loader.load();
@@ -87,11 +87,11 @@ public class MainController extends HuoneistoController implements Initializable
         IO.println("Avasit lisää asunto näkymän");
     }
 
-    private void avaaMuokkaaAsunto(){
-        try{
+    private void avaaMuokkaaAsunto() {
+        try {
             //Pakotetaan käyttäjä valitsemaan, jokin asunto, jotta MuokkaaAsuntoControlleri voidaan avata.
             Asunto klikattuAsunto = asuntoTiedotTable.getSelectionModel().getSelectedItem();
-            if(klikattuAsunto == null) {
+            if (klikattuAsunto == null) {
                 varoitus("Asunto puuttuu",
                         "",
                         "Muokataksesi asuntoa sinun täytyy ensin valita asunto");
@@ -136,8 +136,8 @@ public class MainController extends HuoneistoController implements Initializable
                 }
             }
             yhtio.poistaAsunto(poistettavaAsunto);
-        }else varoitus("Valitse poistettava asunto",
+        } else varoitus("Valitse poistettava asunto",
                 "",
-        "Poistaaksesi asunnon, sinun täytyy ensin valita asunto");
+                "Poistaaksesi asunnon, sinun täytyy ensin valita asunto");
     }
 }

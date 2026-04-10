@@ -5,6 +5,7 @@ import fi.jyu.ohj2.kinnjomi.Huoneistotietojarjestelma.model.Yhtio;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 public class lisaaAsuntoTest {
 
     @Test
@@ -16,7 +17,7 @@ public class lisaaAsuntoTest {
     }
 
     @Test
-    void lisaaAsunto_eiLisaaAsuntoListaan(){
+    void lisaaAsunto_eiLisaaAsuntoListaan() {
         Yhtio yhtio = new Yhtio();
         yhtio.lisaaAsunto(new Asunto(""));
         yhtio.lisaaAsunto(new Asunto("   "));
@@ -25,7 +26,7 @@ public class lisaaAsuntoTest {
     }
 
     @Test
-    void poistaAsunto_poistaAsuntoListasta(){
+    void poistaAsunto_poistaAsuntoListasta() {
         Yhtio yhtio = new Yhtio();
         Asunto asunto = new Asunto("A6");
         yhtio.lisaaAsunto(asunto);
